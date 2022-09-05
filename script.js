@@ -46,8 +46,15 @@ function sub(n1, n2) {
 
 function convertToDigit() {
     let ans;
-    num1 = Number(n1.join(""));
-    document.getElementById("display").innerHTML = num1;
+    if (!n1State && !opState) {
+        num1 = Number(n1.join(""));
+        document.getElementById("display").innerHTML = num1;
+    } else {
+        num2 = Number(n2.join(""));
+        document.getElementById("display").innerHTML = num2;
+    }
+    // num1 = Number(n1.join(""));
+    // document.getElementById("display").innerHTML = num1;
 }
 
 function clear() {
