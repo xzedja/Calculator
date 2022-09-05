@@ -1,7 +1,12 @@
 let n1 = [];
 let n2 = [];
 let num1 = 0;
-let operator;
+let operator = null;
+
+//States
+let n1State = false;
+let n2State = false;
+let opState = false;
 
 function add (n1, n2) {
     return n1 + n2;
@@ -55,11 +60,22 @@ function clear() {
  function getValue(event) {
     let val = event.target.className;
 
-    if (val == "num") {
+    if (val == "num" && !n1State) {
         // document.getElementById("display").innerHTML = num1;
         n1.push(event.target.id);
         console.log(n1);
         // console.log(num1);
+    } else if (val == "operator" && !n1State && !n2State) {
+        operator = event.target.id;
+        n1State = true;
+        opState = true;
+        console.log("n1State: " + n1State + ". n1State expected: true");
+        console.log("opState: " + opState + ". opState expected: true");
+        console.log("This is the operator: " + event.target.id);
+
+    } else if (val == "num" && n1State && !n2State) {
+        n2.push(event.target.id);
+        console.log(n2);
     }
  }
  
