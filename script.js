@@ -1,3 +1,7 @@
+let n1 = [];
+let n2 = [];
+let num1 = 0;
+let operator;
 
 function add (n1, n2) {
     return n1 + n2;
@@ -35,7 +39,13 @@ function sub(n1, n2) {
     }
  }
 
- function clear() {
+function convertToDigit() {
+    let ans;
+    num1 = Number(n1.join(""));
+    document.getElementById("display").innerHTML = num1;
+}
+
+function clear() {
     n1 = null;
     n2 = null;
     operate = null;
@@ -44,29 +54,21 @@ function sub(n1, n2) {
 
  function getValue(event) {
     let val = event.target.className;
-    console.log(val);
-    if (val == "num")
-        document.getElementById("display").innerHTML = event.target.id;
+
+    if (val == "num") {
+        // document.getElementById("display").innerHTML = num1;
+        n1.push(event.target.id);
+        console.log(n1);
+        // console.log(num1);
+    }
  }
-
- let num1, num2;
- let operator;
-
+ 
+ document.getElementById("display").innerHTML = num1;
  let calcDiv = document.querySelectorAll(".calc-numbers > div");
 
  for (let i = 0; i < calcDiv.length; i++) {
     // console.log(calcDiv[i].attributes.alt.nodeValue);
 
     calcDiv[i].addEventListener('click', getValue);
-    // calcDiv[i].addEventListener('click', event => {
-        
-    //     let val = event.target.title;
-    //     console.log(val);
-    //     if (!val)
-    //         console.log("Value does not exist");
-    //     // console.log(val);
-        
-    // });
+    calcDiv[i].addEventListener('click', convertToDigit);
  }
-
-//  console.log(calcDiv);

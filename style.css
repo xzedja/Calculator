@@ -25,6 +25,7 @@ body {
     height: 100px;
     border: solid 1px #000;
     margin-bottom: 1px;
+    border-bottom: none;
     border-radius: 5px;
 }
 
