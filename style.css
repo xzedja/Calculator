@@ -50,7 +50,7 @@ body {
     /* color: #54b3d6; */
     /* margin: 0 -.25rem;
     padding: 0 .25rem; */
-    transition: color .15s ease-in-out, box-shadow .3s ease-in-out;
+    transition: color .15s ease-in-out, box-shadow .1s ease-in-out;
 }
 
 .calc-numbers > div:hover {

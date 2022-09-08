@@ -79,17 +79,18 @@ function clear() {
         // document.getElementById("display").innerHTML = num1;
         n1.push(event.target.id);
         console.log(n1);
-        document.getElementById("display").innerHTML = convertToDigit(n1);
+        num1 = convertToDigit(n1);
+        document.getElementById("display").innerHTML = num1;
         // console.log(num1);
     } else if (val == "operator" && n1State && !n2State) {
         operator = event.target.id;
         n1State = false;
         n2State = opState = true;
-        console.log("n1State: " + n1State + ". n1State expected: true");
-        console.log("opState: " + opState + ". opState expected: true");
+        // console.log("n1State: " + n1State + ". n1State expected: true");
+        // console.log("opState: " + opState + ". opState expected: true");
         console.log("This is the operator: " + event.target.id);
 
-    } else if (val == "operator" && opState && event.target.id != "=") {
+    } else if (val == "operator" && opState && n2.length == 0) {
         oldOp = operator;
         operator = event.target.id;
 
@@ -97,23 +98,32 @@ function clear() {
     } else if (val == "num" && !n1State && n2State) {
         n2.push(event.target.id);
         console.log(n2);
-        document.getElementById("display").innerHTML = convertToDigit(n2);
-    } else if (/*val == "operator"*/ event.target.id == "=" && !n1State && n2State) {
+        num2 = convertToDigit(n2);
+        document.getElementById("display").innerHTML = num2;
+    } else if (val == "operator" && /*event.target.id == "=" &&*/  !n1State && n2State && n2.length != 0) {
         console.log("Triggered option to display solution");
-        let dig1 = Number(n1.join(""));
-        let dig2 = Number(n2.join(""));
+        // let dig1 = Number(n1.join(""));
+        // let dig2 = Number(n2.join(""));
 
-        n2State = false;
+        // n2State = false;
         
         // console.log(event.target.id);
         // operate(operator,n1,n2);
-        console.log("operator: " + operator + " dig1: " + dig1 + " dig2: "+ dig2);
-        currentNum = operate(operator,dig1,dig2);
+        console.log("operator: " + operator + " dig1: " + num1 + " dig2: "+ num2);
+        currentNum = operate(operator,num1,num2);
         console.log(currentNum);
         // clear();
         document.getElementById("display").innerHTML = currentNum;
 
+        n2 = []
+        num2 = 0;
+        num1 = currentNum;
+        n1State = true;
+        n2State = false;
+        opState = false;
     }
+    console.log("num1: " + num1 + " num2: " + num2 + " operator:" + operator + " n1: " + n1 + " n2: " + n2);
+    console.log("States - opState: " + opState + " n1State: " + n1State + " n2State: " + n2State);
  }
  
  document.getElementById("display").innerHTML = num1;
