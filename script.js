@@ -117,10 +117,16 @@ function clear() {
 
         n2 = []
         num2 = 0;
+        n1 = Array.from(String(currentNum), Number);
         num1 = currentNum;
-        n1State = true;
-        n2State = false;
-        opState = false;
+        operator = event.target.id;
+        // n1State = true;
+        // n2State = false;
+        // opState = false;
+
+        n1State = false;
+        n2State = true;
+        opState = true;
     }
     console.log("num1: " + num1 + " num2: " + num2 + " operator:" + operator + " n1: " + n1 + " n2: " + n2);
     console.log("States - opState: " + opState + " n1State: " + n1State + " n2State: " + n2State);
