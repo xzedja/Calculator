@@ -27,7 +27,6 @@ function sub(n1, n2) {
  }
 
  function operate(operator, n1, n2) {
-    // let answer = 0;
     switch(operator) {
         case "+":
             return add(n1,n2);
@@ -42,52 +41,71 @@ function sub(n1, n2) {
     }
  }
 
-// function convertToDigit() {
-//     if (!n1State && !opState) {
-//         num1 = Number(n1.join(""));
-//         document.getElementById("display").innerHTML = num1;
-//     } else  if (!n2State){
-//         num2 = Number(n2.join(""));
-//         document.getElementById("display").innerHTML = num2;
-//     } else {
-//         document.getElementById("display").innerHTML = currentNum;
-//     }
-// }
-
 function convertToDigit(number) {
     return Number(number.join(""));
 }
 
-function clear() {
-    // n1 = ;
-    n2 = [];
-    num2 = 0;
-    n1 = currentNum;
+function extraOpsEvent(event) {
+
+    console.log(event.target.id);
+    switch(event.target.id) {
+        case "abs":
+            if (n1 && n2.length == 0) {
+                num1 = num1 * -1;
+                n1 = Array.from(String(num1), Number);
+                console.log(num1 + " num1 " + n1 + "    n1");
+                document.getElementById("display").innerHTML = num1;
+            } else {
+                num2 = num2 * -1;
+                n2 = Array.from(String(num2), Number);
+                document.getElementById("display").innerHTML = num2;
+            }
+            break;
+        case "clear":
+            if (n1State) {
+                num1 = 0;
+                n1 = []
+                console.log(num1 + " " + n1);
+                document.getElementById("display").innerHTML = num1;
+            } else {
+                num2 = 0;
+                n2 = []
+                console.log(num2 + " " + n2);
+                document.getElementById("display").innerHTML = num2;
+            }
+            break;
+        case "pi":
+            if (n1State) {
+                num1 = Math.PI;
+                n1 = Array.from(String(num1), Number);
+                document.getElementById("display").innerHTML = num1;
+            } else {
+                num2 = Math.PI;
+                n2 = Array.from(String(num2), Number);
+                document.getElementById("display").innerHTML = num2;
+            }
+            break;
+        default:
+            console.log("Issue arose");
+    }
+}
 
 
-    n1State = false;
-    n2State = false;
-    opState = false;
-    operate = null;
- }
-
-
- function getValue(event) {
+function getValue(event) {
     let val = event.target.className;
 
     if (val == "num" && n1State) {
         // document.getElementById("display").innerHTML = num1;
-        n1.push(event.target.id);
+        n1.push(parseInt(event.target.id));
         console.log(n1);
         num1 = convertToDigit(n1);
         document.getElementById("display").innerHTML = num1;
-        // console.log(num1);
+
+        
     } else if (val == "operator" && n1State && !n2State) {
         operator = event.target.id;
         n1State = false;
         n2State = opState = true;
-        // console.log("n1State: " + n1State + ". n1State expected: true");
-        // console.log("opState: " + opState + ". opState expected: true");
         console.log("This is the operator: " + event.target.id);
 
     } else if (val == "operator" && opState && n2.length == 0) {
@@ -96,33 +114,24 @@ function clear() {
 
         console.log("old op: " + oldOp + " new op: " + operator);
     } else if (val == "num" && !n1State && n2State) {
-        n2.push(event.target.id);
+        n2.push(parseInt(event.target.id));
         console.log(n2);
         num2 = convertToDigit(n2);
         document.getElementById("display").innerHTML = num2;
     } else if (val == "operator" && /*event.target.id == "=" &&*/  !n1State && n2State && n2.length != 0) {
         console.log("Triggered option to display solution");
-        // let dig1 = Number(n1.join(""));
-        // let dig2 = Number(n2.join(""));
-
-        // n2State = false;
         
-        // console.log(event.target.id);
-        // operate(operator,n1,n2);
         console.log("operator: " + operator + " dig1: " + num1 + " dig2: "+ num2);
         currentNum = operate(operator,num1,num2);
         console.log(currentNum);
-        // clear();
         document.getElementById("display").innerHTML = currentNum;
 
         n2 = []
         num2 = 0;
         n1 = Array.from(String(currentNum), Number);
+        // console.log(Math.abs(currentNum) + " abs" + "current: " + currentNum);
         num1 = currentNum;
         operator = event.target.id;
-        // n1State = true;
-        // n2State = false;
-        // opState = false;
 
         n1State = false;
         n2State = true;
@@ -136,8 +145,14 @@ function clear() {
  let calcDiv = document.querySelectorAll(".calc-numbers > div");
 
  for (let i = 0; i < calcDiv.length; i++) {
-    // console.log(calcDiv[i].attributes.alt.nodeValue);
-
     calcDiv[i].addEventListener('click', getValue);
     // calcDiv[i].addEventListener('click', convertToDigit);
  }
+
+ let extraOps = document.querySelectorAll(".extra");
+ for (let i = 0; i < extraOps.length; i++ ) {
+    extraOps[i].addEventListener('click', extraOpsEvent);
+ }
+
+ console.log(extraOps);
+
