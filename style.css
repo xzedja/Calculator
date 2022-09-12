@@ -37,6 +37,7 @@ body {
     border: solid 1px #000;
     margin-bottom: 5px;
     /* border-bottom: 1px; */
+    background-color: aliceblue;
 
     border-radius: 5px;
 }
