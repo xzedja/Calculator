@@ -38,7 +38,7 @@ body {
     
 }
 
-.calc-numbers > div {
+.calc-numbers > div.num{
     display:flex;
     border: solid 1px #000;
     border-radius: 5px;
@@ -53,8 +53,27 @@ body {
     transition: color .15s ease-in-out, box-shadow .1s ease-in-out;
 }
 
-.calc-numbers > div:hover {
+.calc-numbers > div.extra, div.operator{
+    display:flex;
+    border: solid 1px #000;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    margin-top: -1px;
+    margin-left: -1px;
+    box-shadow: inset 0 0 0 0 #7b54d6;
+    /* color: #54b3d6; */
+    /* margin: 0 -.25rem;
+    padding: 0 .25rem; */
+    transition: color .15s ease-in-out, box-shadow .1s ease-in-out;
+}
+
+.calc-numbers > div.num:hover {
     box-shadow: inset 100px 0 0 0 #54b3d6;
+    color: white;
+}
+.calc-numbers > div.extra:hover, div.operator:hover {
+    box-shadow: inset 100px 0 0 0 #7b54d6;
     color: white;
 }
 

@@ -46,7 +46,6 @@ function convertToDigit(number) {
 }
 
 function extraOpsEvent(event) {
-
     console.log(event.target.id);
     switch(event.target.id) {
         case "abs":
@@ -62,17 +61,14 @@ function extraOpsEvent(event) {
             }
             break;
         case "clear":
-            if (n1State) {
-                num1 = 0;
-                n1 = []
-                console.log(num1 + " " + n1);
-                document.getElementById("display").innerHTML = num1;
-            } else {
-                num2 = 0;
-                n2 = []
-                console.log(num2 + " " + n2);
-                document.getElementById("display").innerHTML = num2;
-            }
+            n1 = [];
+            n2 = [];
+            num1 = 0;
+            num2 = 0;
+            n1State = true;
+            n2State = false;
+            opState = false;
+            document.getElementById("display").innerHTML = num1;
             break;
         case "pi":
             if (n1State) {
@@ -83,6 +79,28 @@ function extraOpsEvent(event) {
                 num2 = Math.PI;
                 n2 = Array.from(String(num2), Number);
                 document.getElementById("display").innerHTML = num2;
+            }
+            break;
+        case ".":
+            let n = num1 % 1;
+            let m = num2 % 1;
+            if (n1State) {
+                let n = num1 % 1;
+                if (n != 0) {
+                    console.log("Already a decimal");
+                } else {
+                    n1.push(".");
+                    console.log(n1);
+                }
+
+            } else {
+                let m = num2 % 1;
+                if (m != 0) {
+                    console.log("Already a decimal");
+                } else {
+                    n2.push(".");
+                    console.log(n2);
+                }
             }
             break;
         default:
@@ -100,18 +118,14 @@ function getValue(event) {
         console.log(n1);
         num1 = convertToDigit(n1);
         document.getElementById("display").innerHTML = num1;
-
-        
     } else if (val == "operator" && n1State && !n2State) {
         operator = event.target.id;
         n1State = false;
         n2State = opState = true;
         console.log("This is the operator: " + event.target.id);
-
     } else if (val == "operator" && opState && n2.length == 0) {
         oldOp = operator;
         operator = event.target.id;
-
         console.log("old op: " + oldOp + " new op: " + operator);
     } else if (val == "num" && !n1State && n2State) {
         n2.push(parseInt(event.target.id));
@@ -120,7 +134,6 @@ function getValue(event) {
         document.getElementById("display").innerHTML = num2;
     } else if (val == "operator" && /*event.target.id == "=" &&*/  !n1State && n2State && n2.length != 0) {
         console.log("Triggered option to display solution");
-        
         console.log("operator: " + operator + " dig1: " + num1 + " dig2: "+ num2);
         currentNum = operate(operator,num1,num2);
         console.log(currentNum);
@@ -146,7 +159,6 @@ function getValue(event) {
 
  for (let i = 0; i < calcDiv.length; i++) {
     calcDiv[i].addEventListener('click', getValue);
-    // calcDiv[i].addEventListener('click', convertToDigit);
  }
 
  let extraOps = document.querySelectorAll(".extra");
