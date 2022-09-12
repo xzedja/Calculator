@@ -165,6 +165,3 @@ function getValue(event) {
  for (let i = 0; i < extraOps.length; i++ ) {
     extraOps[i].addEventListener('click', extraOpsEvent);
  }
-
- console.log(extraOps);
-
